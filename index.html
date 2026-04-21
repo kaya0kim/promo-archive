@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📦 프로모션 아카이브 - 전체 히스토리</title>
+<title>📦 프로모션 아카이브</title>
 <style>
   * { box-sizing: border-box; }
   body {
     font-family: -apple-system, 'Segoe UI', 'Malgun Gothic', sans-serif;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
@@ -21,103 +21,128 @@
     padding-bottom: 15px;
     font-size: 2em;
   }
-  .subtitle {
-    color: #666;
-    margin-bottom: 30px;
-    font-size: 1.05em;
-  }
-  .stats {
+  .subtitle { color: #666; margin-bottom: 20px; font-size: 1em; }
+  .filter-section {
     background: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
   }
-  .stat-item {
-    flex: 1;
-    min-width: 150px;
-  }
-  .stat-label {
-    color: #666;
+  .filter-group { margin-bottom: 15px; }
+  .filter-group:last-child { margin-bottom: 0; }
+  .filter-label {
     font-size: 0.85em;
-    margin-bottom: 5px;
-  }
-  .stat-value {
-    color: #1F4E79;
-    font-size: 1.8em;
     font-weight: bold;
-  }
-  .latest-badge {
-    display: inline-block;
-    background: #FF6B35;
-    color: white;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.75em;
-    margin-left: 10px;
-    vertical-align: middle;
-  }
-  .week-card {
-    background: white;
-    padding: 20px 25px;
-    margin: 15px 0;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: all 0.2s;
-    border-left: 5px solid #ddd;
-  }
-  .week-card:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  }
-  .week-card.latest {
-    border-left-color: #FF6B35;
-    background: linear-gradient(to right, #FFF9F4, white);
-  }
-  .week-card .date {
-    font-size: 1.3em;
-    font-weight: bold;
-    color: #1F4E79;
+    color: #555;
     margin-bottom: 8px;
+    display: block;
   }
-  .week-card .info {
-    color: #666;
-    font-size: 0.95em;
-    margin-bottom: 12px;
-  }
-  .week-card .sites {
-    color: #888;
-    font-size: 0.85em;
-    margin-bottom: 12px;
-  }
-  .week-card a {
+  .filter-btn {
     display: inline-block;
+    padding: 6px 14px;
+    margin: 4px 6px 4px 0;
+    border: 1.5px solid #ddd;
+    border-radius: 20px;
+    background: white;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .filter-btn:hover { border-color: #2E75B6; color: #2E75B6; }
+  .filter-btn.active {
     background: #2E75B6;
     color: white;
-    padding: 8px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.9em;
-    transition: background 0.2s;
+    border-color: #2E75B6;
   }
-  .week-card a:hover {
-    background: #1F4E79;
+  .stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
-  .section-title {
+  .stat-item { flex: 1; min-width: 140px; text-align: center; }
+  .stat-label { color: #666; font-size: 0.8em; margin-bottom: 4px; }
+  .stat-value { color: #1F4E79; font-size: 1.5em; font-weight: bold; }
+  .promotion-card {
+    background: white;
+    padding: 16px 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 4px solid #ddd;
+    transition: all 0.2s;
+  }
+  .promotion-card:hover {
+    transform: translateX(3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .promotion-card.big { border-left-color: #FF4500; }
+  .promotion-card.seasonal { border-left-color: #FF69B4; }
+  .promotion-card.retention { border-left-color: #1E90FF; }
+  .promotion-card.normal { border-left-color: #888; }
+  .promo-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .promo-date {
+    font-size: 0.75em;
+    color: #888;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .promo-site {
+    font-size: 0.75em;
     color: #2E75B6;
-    margin-top: 35px;
-    margin-bottom: 15px;
-    font-size: 1.3em;
-    padding-left: 10px;
-    border-left: 4px solid #2E75B6;
+    font-weight: bold;
+    background: #e8f2fc;
+    padding: 2px 8px;
+    border-radius: 10px;
   }
-  .empty {
+  .promo-category {
+    font-size: 0.75em;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+  .promo-category.big { background: #FFE0D0; color: #C03500; }
+  .promo-category.seasonal { background: #FFE0EC; color: #C03080; }
+  .promo-category.retention { background: #D0E8FF; color: #0055AA; }
+  .promo-category.normal { background: #f0f0f0; color: #555; }
+  .promo-title {
+    font-size: 1.05em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  .promo-period { color: #666; font-size: 0.85em; margin-bottom: 4px; }
+  .promo-summary { color: #555; font-size: 0.85em; margin-bottom: 8px; line-height: 1.5; }
+  .promo-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .promo-links a {
+    font-size: 0.8em;
+    color: #2E75B6;
+    text-decoration: none;
+    padding: 4px 12px;
+    background: #f0f7ff;
+    border-radius: 6px;
+  }
+  .promo-links a:hover { background: #2E75B6; color: white; }
+  .empty-state {
     text-align: center;
     padding: 40px;
     color: #999;
+    background: white;
+    border-radius: 12px;
   }
   footer {
     text-align: center;
@@ -125,6 +150,10 @@
     font-size: 0.85em;
     margin-top: 40px;
     padding: 20px;
+  }
+  @media (max-width: 600px) {
+    body { padding: 10px; }
+    .stat-item { min-width: 100px; }
   }
 </style>
 </head>
@@ -134,41 +163,118 @@
 
   <div class="stats">
     <div class="stat-item">
-      <div class="stat-label">📅 총 주차</div>
-      <div class="stat-value">1주</div>
+      <div class="stat-label">📅 주차</div>
+      <div class="stat-value">1</div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">📦 총 프로모션</div>
-      <div class="stat-value">5개</div>
+      <div class="stat-label">📦 전체</div>
+      <div class="stat-value">5</div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">💾 총 용량</div>
-      <div class="stat-value">9.3MB</div>
+      <div class="stat-label">🔥 빅</div>
+      <div class="stat-value">1</div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">🔄 마지막 업데이트</div>
-      <div class="stat-value" style="font-size:1.2em;">2026-04-20</div>
+      <div class="stat-label">🌸 시즈널</div>
+      <div class="stat-value">3</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">💎 기타</div>
+      <div class="stat-value">1</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">📌 일반</div>
+      <div class="stat-value">0</div>
     </div>
   </div>
 
-  <div class="section-title">📅 최신 아카이브</div>
-  <div class="week-card latest">
-    <div class="date">
-      🗓️ 2026-04-20 (월)
-      <span class="latest-badge">NEW</span>
+  <div class="filter-section">
+    <div class="filter-group">
+      <label class="filter-label">📅 날짜</label>
+      <button class="filter-btn active" data-filter-type="date" data-value="all">전체</button>
+      <button class="filter-btn" data-filter-type="date" data-value="2026-04-21">2026-04-21</button>
     </div>
-    <div class="info">
-      📊 5개 사이트 · 5개 프로모션 · 9.3MB
+
+    <div class="filter-group">
+      <label class="filter-label">🏢 사이트</label>
+      <button class="filter-btn active" data-filter-type="site" data-value="all">전체</button>
+      <button class="filter-btn" data-filter-type="site" data-value="11st">11ST</button><button class="filter-btn" data-filter-type="site" data-value="29cm">29CM</button><button class="filter-btn" data-filter-type="site" data-value="gmarket">GMARKET</button><button class="filter-btn" data-filter-type="site" data-value="musinsa">MUSINSA</button><button class="filter-btn" data-filter-type="site" data-value="naver_shopping">NAVER_SHOPPING</button>
     </div>
-    <div class="sites">
-      사이트: 11st(1) · 29cm(1) · gmarket(1) · musinsa(1) · naver_shopping(1)
+
+    <div class="filter-group">
+      <label class="filter-label">🏷️ 카테고리</label>
+      <button class="filter-btn active" data-filter-type="category" data-value="all">전체</button>
+      <button class="filter-btn" data-filter-type="category" data-value="big">🔥 빅 프로모션</button>
+      <button class="filter-btn" data-filter-type="category" data-value="seasonal">🌸 시즈널</button>
+      <button class="filter-btn" data-filter-type="category" data-value="retention">💎 기타</button>
+      <button class="filter-btn" data-filter-type="category" data-value="normal">📌 일반</button>
     </div>
-    <a href="./2026-04-20/">상세 보기 →</a>
   </div>
+
+  <div id="results"></div>
 
   <footer>
-    📦 프로모션 아카이브 시스템 · 매주 월요일 자동 업데이트<br>
-    <small>Last updated: 2026-04-20</small>
+    📦 프로모션 아카이브 시스템<br>
+    <small>Last updated: 2026-04-21</small>
   </footer>
+
+  <script>
+    const allPromotions = [{"date":"2026-04-21","site":"11st","title":"해피 패밀리 위크! 온 가족 실속 선물","period":"4/1~4/30","summary":"우리 아이를 위한 어린이날 선물부터, 효심 가득 담긴 어버이날 선물까지! 인기 브랜드 최대 80% 할인","category":"seasonal","categoryLabel":"시즈널","categoryEmoji":"🌸","originalUrl":"https://plan.11st.co.kr/plan/mobile/exhibitions/2211195/detail","fileName":"01_해피_패밀리_위크__온_가족_실속_선물.html","archivePath":"./2026-04-21/11st/01_해피_패밀리_위크__온_가족_실속_선물.html"},{"date":"2026-04-21","site":"29cm","title":"Mood Refresh","period":"","summary":"한발 먼저 가벼워질 준비","category":"seasonal","categoryLabel":"시즈널","categoryEmoji":"🌸","originalUrl":"https://www.29cm.co.kr/content/category-collection/2026/04/mood-refresh?cache=true","fileName":"01_Mood_Refresh.html","archivePath":"./2026-04-21/29cm/01_Mood_Refresh.html"},{"date":"2026-04-21","site":"gmarket","title":"[G마켓] 봄맞이 새출발 유아동키즈페어","period":"2026.04.20~2026.04.20","summary":"봄맞이 새출발 유아동키즈페어","category":"seasonal","categoryLabel":"시즈널","categoryEmoji":"🌸","originalUrl":"https://rpp.gmarket.co.kr/?exhib=260203","fileName":"01__G마켓__봄맞이_새출발_유아동키즈페어.html","archivePath":"./2026-04-21/gmarket/01__G마켓__봄맞이_새출발_유아동키즈페어.html"},{"date":"2026-04-21","site":"musinsa","title":"티셔츠 페스티벌","period":"","summary":"","category":"retention","categoryLabel":"기타/리텐션","categoryEmoji":"💎","originalUrl":"https://www.musinsa.com/campaign/2026tshirtsfestival/0","fileName":"01_티셔츠_페스티벌.html","archivePath":"./2026-04-21/musinsa/01_티셔츠_페스티벌.html"},{"date":"2026-04-21","site":"naver_shopping","title":"프로모션 : 네이버+ 스토어","period":"04.20 ~ 26.05","summary":"소중한 분들께 믿을 수 있는 선물로 마음을 전해보세요.","category":"big","categoryLabel":"빅 프로모션","categoryEmoji":"🔥","originalUrl":"https://shopping.naver.com/festa/gift/69b749a21598d745dca2155c?dtm_source=newsp_mohome&dtm_medium=mktatrb&dtm_campaign=2604-shopping-004&pcode=newsp_mohome&campaign_id=2604-shopping-004&channel_id=newsp_mohome&NaPm=ct%3Dmo712833%7Cci%3Dshoppingvertical%7Ctr%3Dnshm%7Chk%3Da6c3d415a88e2c6ceee15e7762bd732ca6010aed","fileName":"01_프로모션___네이버__스토어.html","archivePath":"./2026-04-21/naver_shopping/01_프로모션___네이버__스토어.html"}];
+
+    const filters = { date: 'all', site: 'all', category: 'all' };
+
+    function renderResults() {
+      const filtered = allPromotions.filter(p => {
+        if (filters.date !== 'all' && p.date !== filters.date) return false;
+        if (filters.site !== 'all' && p.site !== filters.site) return false;
+        if (filters.category !== 'all' && p.category !== filters.category) return false;
+        return true;
+      });
+
+      const resultsDiv = document.getElementById('results');
+
+      if (filtered.length === 0) {
+        resultsDiv.innerHTML = '<div class="empty-state">해당하는 프로모션이 없습니다.</div>';
+        return;
+      }
+
+      resultsDiv.innerHTML = filtered.map(p => `
+        <div class="promotion-card ${p.category}">
+          <div class="promo-header">
+            <span class="promo-date">📅 ${p.date}</span>
+            <span class="promo-site">🏢 ${p.site.toUpperCase()}</span>
+            <span class="promo-category ${p.category}">${p.categoryEmoji} ${p.categoryLabel}</span>
+          </div>
+          <div class="promo-title">${p.title}</div>
+          ${p.period ? '<div class="promo-period">📅 ' + p.period + '</div>' : ''}
+          ${p.summary ? '<div class="promo-summary">📝 ' + p.summary + '</div>' : ''}
+          <div class="promo-links">
+            ${p.originalUrl ? '<a href="' + p.originalUrl + '" target="_blank">🔗 원본</a>' : ''}
+            <a href="${p.archivePath}" target="_blank">📄 아카이브</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 필터 버튼 클릭 핸들러
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.filterType;
+        const value = btn.dataset.value;
+
+        // 같은 그룹에서 active 변경
+        document.querySelectorAll('.filter-btn[data-filter-type="' + type + '"]').forEach(b => {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+
+        filters[type] = value;
+        renderResults();
+      });
+    });
+
+    // 초기 렌더
+    renderResults();
+  </script>
 </body>
 </html>
